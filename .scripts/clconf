@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cp ~/.Xresources ~/builds/muru-configs
+cp ~/.bashrc ~/builds/muru-configs
+cp ~/.profile ~/builds/muru-configs
+cp -r ~/.config ~/builds/muru-configs
+cp -r ~/.scripts ~/builds/muru-configs

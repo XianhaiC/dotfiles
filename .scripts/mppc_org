@@ -1,0 +1,46 @@
+#!/usr/bin/bash
+
+DIR_PC="${MUSIC_PATH}/.pc"
+EXT_M4A="m4a"
+R_PUNC="[!@#$%^&*()-_+=,./'\"<>?|~]"
+REGEX_GENRE="genre\s*:\s*(\w*)"
+REGEX_ARTIST="artist\s*:\s*(\w(\w| |${R_PUNC})*)"
+REGEX_TITLE="title\s*:\s*(\w(\w| |${R_PUNC})*)"
+
+for filename in $DIR_PC/*; do
+	[ -e "$filename" ] || continue
+	echo $filename
+
+	metadata=$(ffprobe $filename 2>&1 >/dev/null)
+	if ! [[ $metadata =~ $REGEX_GENRE ]]; then
+		continue
+	fi
+
+	genre="${BASH_REMATCH[1]}"
+
+	if ! [[ $metadata =~ $REGEX_ARTIST ]]; then
+		continue
+	fi
+
+	artist="${BASH_REMATCH[1]}"
+
+	if ! [[ $metadata =~ $REGEX_TITLE ]]; then
+		continue
+	fi
+
+	title="${BASH_REMATCH[1]}"
+	
+	path_genre="${MUSIC_PATH}/${genre}"
+	path_store="${path_genre}/${artist} - ${title}.${EXT_M4A}"
+
+	if [ ! -d $path_genre ]; then
+		mkdir $path_genre
+	fi
+	
+	echo $genre
+	echo $artist
+	echo $title
+	echo $path_store
+
+	mv "$filename" "$path_store"
+done

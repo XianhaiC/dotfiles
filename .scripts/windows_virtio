@@ -1,0 +1,23 @@
+#!/bin/bash
+
+cp /usr/share/ovmf/ovmf_vars_x64.bin /tmp/ovmf_vars.bin
+sudo qemu-system-x86_64 \
+-enable-kvm \
+-m 8192 \
+-vga none \
+-cpu host,kvm=off,hv_time,hv_relaxed,hv_vapic,hv_spinlocks=0x1fff,hv_vendor_id=NvidiaFuckYou \
+-smp cpus=4,maxcpus=4,cores=4,threads=1,sockets=1 \
+-device vfio-pci,host=01:00.0,multifunction=on \
+-device vfio-pci,host=01:00.1 \
+-drive if=pflash,format=raw,readonly,file=/usr/share/ovmf/ovmf_code_x64.bin \
+-drive if=pflash,format=raw,file=/tmp/ovmf_vars.bin \
+-usb \
+-device usb-host,hostbus=1,hostport=6 \
+-device usb-host,hostbus=1,hostport=2 \
+-device usb-host,hostbus=2,hostport=1 \
+-boot order=d \
+-daemonize \
+-device virtio-scsi-pci,id=scsi \
+-device virtio-net-pci \
+-drive file=/home/muru/machines/windows10/virtio.qcow2,index=0,media=disk,if=virtio
+#-audiodev id=pa,driver=pa,in.name=input,out.name=alsa_output.pci-0000_00_1f.3.analog-stereo,server=/run/usr/1000/pulse/native \

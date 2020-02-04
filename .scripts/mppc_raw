@@ -1,0 +1,26 @@
+#!/usr/bin/bash
+
+# expects the environment variable MUSIC_PATH to be set
+DIR_RAW="${MUSIC_PATH}/.raw"
+DIR_PC="${MUSIC_PATH}/.pc"
+EXT_WEBM="webm"
+EXT_M4A="mp4"
+
+# remove whitespace from filenames for cleaner processing
+for f in ${DIR_RAW}/*; do mv "$f" `echo $f | tr ' ' '_'`; done
+
+# convert each file to m4a and move to .pc directory
+for filename in ${DIR_RAW}/*; do
+	ext="${filename##*.}"
+	base=$(basename -- "$filename")
+	base_noext=${base%.*}
+	processed_path="${DIR_PC}/${base_noext}.${EXT_M4A}"
+
+	if [ "$ext" = "$EXT_WEBM" ] || [ "$ext" = "$EXT_MP4" ]; then
+		echo $filename
+		echo $processed_path
+		ffmpeg -n -i "$filename" -vn $processed_path
+	else
+		cp $filename $processed_path
+	fi
+done

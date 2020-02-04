@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# handles generating the patch and updating md5sums for you
+# make edits to b/config.def.h, then run this command
+cd ~/builds/suckless/st
+diff --unified=1 --text a/config.def.h b/config.def.h > dwm-custom.diff
+cp PKGBUILD.template PKGBUILD
+makepkg -g >> PKGBUILD
