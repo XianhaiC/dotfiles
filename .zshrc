@@ -84,6 +84,7 @@ alias krs='kill -9 $(cat ~/projects/rails/whim/tmp/pids/server.pid)'
 # whim project
 alias whim="cd ~/projects/webdev/whim-app/whim-backend"
 alias whimfs="cd ~/projects/webdev/whim-app/whim"
+alias hexago="cd ~/projects/webdev/hexagonal-go"
 
 # stupid git
 alias got="git"
@@ -114,3 +115,6 @@ alias curl='noglob curl'
 # curl rest api testing
 alias curlp='curl --header "Content-Type: application/json" \
     --data'
+
+# modify the cursor delay/repetition speed via xset
+alias faast='xset r rate 250 45'
