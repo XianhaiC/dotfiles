@@ -1,0 +1,44 @@
+#!/bin/zsh
+
+function pac-log {
+# Usage: pac-log [n=20]
+#    show persisting installs/removes in last n lines of pacman.log (install X...remove X pairs and the converse are filtered out)
+
+{
+  if [[ -e /var/log/pacman.log.1 ]]; then
+    cat /var/log/pacman.log.1
+  elif [[ -e /var/log/pacman.log.1.gz ]]; then
+    zcat /var/log/pacman.log.1.gz
+  fi
+  cat /var/log/pacman.log
+} \
+  | egrep '] installed|] removed' | tail -n "${1-20}" \
+  | python <(cat << EOF
+import sys, re
+pkgre=re.compile(r'\[[^]]*\] (installed|removed) ([^ ]*) .*')
+lines = []
+hist = {
+    'installed': {},
+    'removed': {},
+  }
+otheract = {
+    'installed':'removed',
+    'removed':'installed',
+  }
+li=0
+for l in sys.stdin:
+    m = pkgre.match(l)
+    if m:
+        act,pkg = m.groups()
+        hist[act].setdefault(pkg,[]).append(li)
+        lines.append((li,act,pkg,l[:-1]))
+        li+=1
+for li,act,pkg,line in lines:
+    if li==hist[act][pkg][-1] and li>hist[otheract[act]].get(pkg,-1):
+        print "%s" % (line,)
+EOF
+)
+
+}
+
+pac-log 20

@@ -28,6 +28,9 @@ export MUSIC_PATH='/home/mogu/music'
 # personal scripts
 export PATH=$PATH:$HOME/.scripts
 
+# pip user modules
+export PATH=$PATH:$HOME/.local/bin
+
 # Ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
@@ -52,8 +55,13 @@ alias murder="killall -9"
 # config related
 alias urel="xrdb ~/.Xresources"
 
+# pacman
+alias pacup='sudo pacman -Syu'
+alias pacin='sudo pacman -S'
+alias pacls='grep -i installed /var/log/pacman.log'
+
 # youtube-dl quickies
-alias ydlraw='youtube-dl -f bestaudio -i -o "~/music/.raw/%(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PL5H5hNhQuW8F7EoUasSXKh659_Zu5gKzx"'
+alias ydlraw='youtube-dl -f bestaudio -i -o "~/music/.raw/%(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PL5H5hNhQuW8GJc5jnznhulqWB8jRvos5s"'
 alias ydlv='youtube-dl -f bestaudio -i -o "~/music/v/%(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PL5H5hNhQuW8EIQ3XN8MTg6BLyI_A8TQfy"'
 alias ydlkr='youtube-dl -f bestaudio -i -o "~/music/kr/%(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PL5H5hNhQuW8HuwSgJgfnVGz9ueXPJSLrl"'
 alias ydlnh='youtube-dl -f bestaudio -i -o "~/music/nh/%(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PL5H5hNhQuW8G5uU0Ie0Po0jc0rHvnIEsu"'
@@ -77,14 +85,10 @@ alias mountphone='simple-mtpfs --device 1 ~/mnt'
 # Git
 alias gitname='git config user.name'
 alias gitemail='git config user.email'
+alias gitls='git ls-tree --name-only -r'
 
 # rails
 alias krs='kill -9 $(cat ~/projects/rails/whim/tmp/pids/server.pid)'
-
-# whim project
-alias whim="cd ~/projects/webdev/whim-app/whim-backend"
-alias whimfs="cd ~/projects/webdev/whim-app/whim"
-alias hexago="cd ~/projects/webdev/hexagonal-go"
 
 # stupid git
 alias got="git"
@@ -95,6 +99,12 @@ alias ship="git push origin"
 alias shup="git pull origin"
 alias shipto="git push"
 alias switch="git checkout"
+alias squash="git rebase -i"
+
+# whim project
+alias whim="cd ~/projects/webdev/whim-app/whim-backend"
+alias whimfs="cd ~/projects/webdev/whim-app/whim"
+alias hexago="cd ~/projects/webdev/hexagonal-go"
 
 # homelab related
 alias hlmain="ssh root@192.168.1.222"
@@ -113,8 +123,17 @@ alias suck="cd ~/builds/suckless"
 alias curl='noglob curl'
 
 # curl rest api testing
-alias curlp='curl --header "Content-Type: application/json" \
+alias curlp='curl -H "Content-Type: application/json" \
     --data'
 
 # modify the cursor delay/repetition speed via xset
 alias faast='xset r rate 250 45'
+
+# install pip modules under the user in .local
+alias pipu='pip install --user --upgrade'
+
+# school
+alias ieng6='ssh xhcao@ieng6.ucsd.edu'
+
+# various util
+alias weather='curl wttr.in/'

@@ -1,17 +1,38 @@
 execute pathogen#infect()
+
 syntax on
 filetype plugin indent on
 
 " set indents to be 2 spaces
-set tabstop=8 softtabstop=0 expandtab shiftwidth=2 smarttab
+set tabstop=4 softtabstop=4
+set shiftwidth=2
+set expandtab
+set smarttab
+
+" indenting
+set smartindent
 set autoindent
 set cindent
+
+" undo history
+set undodir=~/.vim/undodir
+set undofile
+
+set rnu
+set incsearch
+
+" enter pasting mode
+set pastetoggle=<F3>
 
 " disable scratchpad
 set completeopt-=preview
 
+" autowrap certain files
+au BufRead,BufNewFile *.tex setlocal textwidth=80
+
 highlight OverLength ctermbg=red ctermfg=white guibg=red
 match OverLength /\%81v.\+/
+
 
 
 " The following alternative may be less obtrusive.
@@ -25,9 +46,6 @@ let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 
-" NERDTree
-
-map <C-n> :NERDTreeToggle<CR>
 
 " buffers as tabs
 
@@ -37,7 +55,7 @@ set hidden
 
 " To open a new empty buffer
 " This replaces :tabnew which I used to bind to this mapping
-nmap <leader>T :enew<cr>
+nmap <leader>t :enew<cr>
 
 " Move to the next buffer
 nmap <leader>j :bnext<CR>
@@ -52,16 +70,29 @@ nmap <leader>q :bp <BAR> bd #<CR>
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
 
-set pastetoggle=<F3>
 
 " NERD commenter
 let g:NERDSpaceDelims = 1
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 
+" vim-latex-live-preview
+
+let g:livepreview_previewer = 'zathura'
+let g:livepreview_cursorhold_recompile = 0
+
+" remaps
+map <C-n> :NERDTreeToggle<CR>
+map <C-h> :UndotreeToggle<CR>
+
 " vimplug
 call plug#begin('~/.vim/plugged')
+
+Plug 'tpope/vim-fugitive'
+Plug 'mbbill/undotree'
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'calviken/vim-gdscript3'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+
 call plug#end()
