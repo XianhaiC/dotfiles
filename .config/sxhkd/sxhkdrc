@@ -4,18 +4,22 @@
 
 # terminal emulator
 alt + Return
-	st
+	alacritty
 
 # program launcher
 alt + d
-	dmenu_run -fn scientifica:size=11 \
-	-nb '#ff364d' -nf '#e8dfd6' -sf '#ff364d' -sb '#e8dfd6' \
-        -b
+	dmenu_run -fn 'SF Mono:style=Bold:size=8' \
+#	-nb '#ff364d' -nf '#e8dfd6' -sf '#ff364d' -sb '#e8dfd6' \
+	-nb '#00FECA' -nf '#000000' -sf '#00FECA' -sb '#000000'
 
 alt + p
-	passmenu -fn scientifica:size=11 \
-	-nb '#ff364d' -nf '#e8dfd6' -sf '#ff364d' -sb '#e8dfd6' \
+	passmenu -fn 'SF Mono:style=Bold:size=8' \
+	-nb '#FF2079' -nf '#000000' -sf '#FF2079' -sb '#000000' \
         -b
+
+# negative -w arg to account for a border width (default: 100%)
+alt + grave
+    tdrop -ma -w 50% -h 50% -x 25% -y 25% -s dropdown alacritty
 
 
 # make sxhkd reload its configuration files:
@@ -32,7 +36,7 @@ alt + shift + {q,r}
 
 # close and kill
 alt + {_,shift + }c
-	bspc node -{k,c}
+	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
 alt + m
@@ -79,7 +83,7 @@ alt + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
-alt + {grave,Tab}
+alt + {z,Tab}
 	bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
@@ -137,3 +141,8 @@ alt + ctrl + shift + {h,j,k,l}
 # move a floating window
 alt + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# scratchpad
+alt + ctrl + grave
+	d=$(cat /tmp/scratchid);\
+	bspc node $id --flag hidden;bspc node -f $id
