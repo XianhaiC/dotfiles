@@ -16,8 +16,8 @@ bspc monitor HDMI-0 -d VII VIII IX X
 # mouse pointer
 xsetroot -cursor_name left_ptr
 
-bspc config border_width         15
-bspc config window_gap          20
+bspc config border_width         1
+bspc config window_gap          0
 
 bspc config split_ratio          0.52
 
@@ -29,13 +29,14 @@ bspc config pointer_follows_focus true
 bspc config pointer_follows_monitor true
 
 # border color
-bspc config normal_border_color \#e9daca
-bspc config active_border_color \#e9daca
+bspc config normal_border_color \#303030
+bspc config active_border_color \#EEEEEE
 #bspc config focused_border_color \#ecd0b2
-bspc config focused_border_color \#e3d0bc
+bspc config focused_border_color \#EEEEEE
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
+bspc rule -a Zathura state=tiled
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off

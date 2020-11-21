@@ -5,14 +5,14 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'airblade/vim-gitgutter'
 Plug 'andymass/vim-matchup'
-Plug 'godlygeek/tabular'
+"Plug 'godlygeek/tabular'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 "Plug 'mattn/emmet-vim', {'for': ['javascript.jsx', 'html', 'css']}
-"Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'branch': 'release'}
-Plug 'wellle/targets.vim'
-Plug 'editorconfig/editorconfig-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'wellle/targets.vim'
+"Plug 'editorconfig/editorconfig-vim'
 Plug 'mbbill/undotree'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
@@ -28,9 +28,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'mxw/vim-jsx', {'for' : 'javascript.jsx'}
 Plug 'pangloss/vim-javascript', {'for' : ['javascript.jsx', 'javascript']}
 Plug 'alvan/vim-closetag'
-Plug 'alvan/vim-closetag'
-Plug 'rust-lang/rust.vim', {'for': 'rust'}
+" Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'vlime/vlime', {'rtp': 'vim/'}
 
 " colorschemes
 Plug 'nerdypepper/agila.vim'
@@ -42,27 +42,27 @@ call plug#end()
 " augroups
 
 augroup plaintext
-    autocmd!
-	autocmd FileType text,markdown setlocal ts=2 sts=2 sw=2 expandtab textwidth=60
+  autocmd!
+  autocmd FileType text,markdown setlocal ts=2 sts=2 sw=2 expandtab textwidth=60
 augroup END
 
 augroup webdev
-    autocmd!
-	autocmd FileType less,css,html,js?,ts? setlocal ts=2 sts=2 sw=2 expandtab
-	autocmd FileType less,css,html nnoremap <Leader>s viB:sort<cr>
+  autocmd!
+  autocmd FileType less,css,html,js?,ts? setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType less,css,html nnoremap <Leader>s viB:sort<cr>
 augroup END
 
-augroup highlight_follows_vim
-	autocmd!
-	autocmd WinEnter * set cursorline
-	autocmd WinLeave * set nocursorline
-augroup END
+" augroup highlight_follows_vim
+  " autocmd!
+  " autocmd WinEnter * set cursorline
+  " autocmd WinLeave * set nocursorline
+" augroup END
 
 augroup restorecursor
-	autocmd BufReadPost *
-				\ if line("'\"") > 1 && line("'\"") <= line("$") |
-				\   execute "normal! g`\"" |
-				\ endif
+  autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+        \   execute "normal! g`\"" |
+        \ endif
 augroup END
 
 " general settings
@@ -107,13 +107,17 @@ set cmdheight=2
 set shortmess+=c
 set updatetime=300
 set signcolumn=yes
+set nu
 set rnu
 set pastetoggle=<F3>
 set completeopt-=preview
+let mapleader= " "
 
 let g:netrw_browsex_viewer= "xdg-open"
 
 colorscheme plain
+" get rid of annoying tilde
+highlight EndOfBuffer ctermfg=black ctermbg=black
 
 set tabstop=4 softtabstop=4
 set shiftwidth=2
@@ -122,8 +126,8 @@ set smarttab
 
 " Functions
 function! GetTabber()  " a lil function that integrates well with Tabular.vim
-	let c = nr2char(getchar())
-	:execute 'Tabularize /' . c
+  let c = nr2char(getchar())
+  :execute 'Tabularize /' . c
 endfunction
 
 " Ugh
@@ -164,19 +168,19 @@ let g:rustfmt_autosave = 1
 
 " fzf colors
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 
 " indentLine
 let g:indentLine_setColors = 0
@@ -191,9 +195,22 @@ let g:ft_man_open_mode = 'tab'
 " vim-matchup
 let g:matchup_matchparen_deferred = 1
 let g:matchup_matchparen_hi_surround_always = 1
+let g:matchup_matchparen_deferred_show_delay = 300
+let g:matchup_matchparen_deferred_hide_delay = 400
 
 " coc-nvim
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
 hi CocHintSign ctermfg=7
+nmap <leader>rr <Plug>(coc-rename)
+nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
 " NERD commenter
 let g:NERDSpaceDelims = 1
@@ -205,11 +222,14 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:livepreview_previewer = 'zathura'
 let g:livepreview_cursorhold_recompile = 0
 
+
 " vim-closetag
 " enable jsx
 let g:closetag_filetypes = 'html,xhtml,jsx,javascript'
 
 " remaps
+nmap <leader>rr :so ~/.vimrc<CR>
+nmap <leader>tt gg=G``zz
 map <C-n> :NERDTreeToggle<CR>
 map <C-h> :UndotreeToggle<CR>
 map <C-v> :noh<CR>
@@ -225,3 +245,12 @@ let g:ycm_auto_hover=''
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
 map <C-f> :GFiles<CR>
+
+" auto-pairs
+let g:AutoPairsFlyMode = 0
+let g:AutoPairs = {'(':')', '[':']', '{':'}'}
+
+" vlime
+let g:vlime_leader = ","
+let g:vlime_compiler_policy = {"DEBUG": 3}
+"let g:vlime_cl_use_terminal = 1

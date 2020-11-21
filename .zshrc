@@ -39,6 +39,10 @@ export PATH=$PATH:$HOME/.scripts
 # pip user modules
 export PATH=$PATH:$HOME/.local/bin
 
+# npm user global package installations
+PATH="$HOME/.node_modules/bin:$PATH"
+export npm_config_prefix=~/.node_modules
+
 # Ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
@@ -55,11 +59,16 @@ alias lah="ls -lah"
 alias cl="clear"
 alias vimzrc="vim ~/.zshrc"
 alias szrc="source ~/.zshrc"
+alias vimrc="vim ~/.vimrc"
+alias tarc="tar -cvf"
+alias tarx="tar -xvf"
 
 # processes and sytem monitoring
-alias tree="pstree -p"
+alias ptree="pstree -p"
 alias murder="killall -9"
 alias space="df -h"
+# delete logs older than 3 days
+alias rmlogs="sudo journalctl --vacuum-time=3d"
 
 # config related
 alias urel="xrdb ~/.Xresources"
@@ -68,9 +77,11 @@ alias urel="xrdb ~/.Xresources"
 alias pacup='sudo pacman -Syu'
 alias pacin='sudo pacman -S'
 alias pacrm='sudo pacman -R'
+alias pacwhere='pacman -Ql'
 alias pacls='grep -i installed /var/log/pacman.log'
 # cleans up orhpaned packages
 alias paccl='sudo pacman -Rns $(pacman -Qtdq)'
+alias pacrmcache='sudo pacman -Sc'
 # does not work for some reason
 #alias pacspace="pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}' | sort -hr | less"
 
