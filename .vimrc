@@ -1,5 +1,12 @@
 let &t_ZM = "\e[3m"
 
+" setup truecolor support if availible
+if exists('+termguicolors')
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
 " vim-plugs
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -53,9 +60,9 @@ augroup webdev
 augroup END
 
 " augroup highlight_follows_vim
-  " autocmd!
-  " autocmd WinEnter * set cursorline
-  " autocmd WinLeave * set nocursorline
+" autocmd!
+" autocmd WinEnter * set cursorline
+" autocmd WinLeave * set nocursorline
 " augroup END
 
 augroup restorecursor
@@ -75,14 +82,14 @@ syntax on
 
 set omnifunc=syntaxcomplete#Complete
 set completefunc=LanguageClient#complete
-set list
+set nolist
 filetype off
 filetype plugin indent on
 set laststatus=2
 set nowrap
 set noshowmode
-set listchars=tab:┊\ ,nbsp:␣,trail:·,extends:>,precedes:<
-set fillchars=vert:\│
+"set listchars=tab:┊\ ,nbsp:␣,trail:·,extends:>,precedes:<
+"set fillchars=vert:\│
 set ignorecase
 set smartcase
 set sidescroll=40
@@ -232,7 +239,7 @@ nmap <leader>rr :so ~/.vimrc<CR>
 nmap <leader>tt gg=G``zz
 map <C-n> :NERDTreeToggle<CR>
 map <C-h> :UndotreeToggle<CR>
-map <C-v> :noh<CR>
+map <C-b> :noh<CR>
 
 " undo history
 set undodir=~/.vim/undodir
