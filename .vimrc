@@ -2,8 +2,8 @@ let &t_ZM = "\e[3m"
 
 " setup truecolor support if availible
 if exists('+termguicolors')
-  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
 
@@ -43,6 +43,7 @@ Plug 'vlime/vlime', {'rtp': 'vim/'}
 Plug 'nerdypepper/agila.vim'
 Plug 'nerdypepper/chestnut.vim'
 Plug 'nerdypepper/vim-colors-plain', { 'branch': 'duotone' }
+Plug 'kjwon15/vim-transparent'
 
 call plug#end()
 
@@ -122,9 +123,10 @@ let mapleader= " "
 
 let g:netrw_browsex_viewer= "xdg-open"
 
-colorscheme plain
+colorscheme trans
 " get rid of annoying tilde
-highlight EndOfBuffer ctermfg=black ctermbg=black
+highlight EndOfBuffer ctermfg=NONE ctermbg=NONE
+set fcs=eob:\ 
 
 set tabstop=4 softtabstop=4
 set shiftwidth=2
