@@ -1,0 +1,7 @@
+set recolor true
+set recolor-darkcolor "#1f1f1f"
+set recolor-lightcolor "#dcdccc"
+set default-bg "#dcdccc"
+set window-title-basename "true"
+set selection-clipboard "clipboard"
+#set guioptions none

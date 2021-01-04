@@ -15,7 +15,7 @@ bindkey '^R' history-incremental-search-backward
 
 # This will set the default prompt to the walters theme
 #export PS1='%n %m %c '
-export PROMPT=$'\n''%F{green}%c%f'$'\n''%F{magenta}%n%f '
+export PROMPT=$'\n''%F{green}%c%f'$'\n''%F{white}λ%f '
 
 # colored prompt and folders/files
 alias ls="ls -h --color=always"
@@ -104,7 +104,7 @@ alias gcalw='gcalcli calw'
 alias 32or64='uname -a'
 
 # modify the cursor delay/repetition speed via xset
-alias faast='xset r rate 250 45'
+alias faast='xset r rate 250 30'
 
 # check keybindings in shell
 alias bk='bindkey'
@@ -164,8 +164,12 @@ alias ieng6='ssh xhcao@ieng6.ucsd.edu'
 alias weather='curl wttr.in/'
 alias colortest='msgcat --color=test'
 
-# map vim to nvim
-#alias vim="nvim"
+# map common program names
+alias vim="nvim"
+alias tmux="tmux -f ~/.config/tmux/tmux.conf"
+alias mkdir="mkdir -p"
+alias inf="neofetch"
+alias sbcl="rlwrap sbcl"
 
 # functions
 
