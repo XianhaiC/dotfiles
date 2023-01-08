@@ -13,6 +13,11 @@ bindkey -v '^?' backward-delete-char
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 
+# setup history
+export SAVEHIST=1000
+export HISTSIZE=1000
+export HISTFILE=~/.zsh_history
+
 # This will set the default prompt to the walters theme
 #export PS1='%n %m %c '
 export PROMPT=$'\n''%F{green}%c%f'$'\n''%F{white}λ%f '
@@ -31,6 +36,12 @@ export MUSIC_PATH='/home/mogu/music'
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
+# use an editor with man
+export MANPAGER='/bin/bash -c "nvim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist norelativenumber nonu noma\" -c \"normal L\" -c \"nmap q :qa<CR>\"</dev/tty <(col -b)"'
+
+export EDITOR="vim"
+
+
 ## PATH EXPORTS
 
 # personal scripts
@@ -38,6 +49,19 @@ export PATH=$PATH:$HOME/.scripts
 
 # pip user modules
 export PATH=$PATH:$HOME/.local/bin
+
+# cargos
+export PATH=$PATH:$HOME/.cargo/bin
+
+# lisp roswell
+export PATH=$PATH:$HOME/.roswell/bin
+
+# go
+export GO111MODULE=auto
+export GOPATH=$HOME/projects/go
+export PATH=$PATH:$GOPATH/bin
+# ensure binaries are installed under go path
+export GOBIN=$HOME/.go/bin
 
 # npm user global package installations
 PATH="$HOME/.node_modules/bin:$PATH"
@@ -59,9 +83,20 @@ alias lah="ls -lah"
 alias cl="clear"
 alias vimzrc="vim ~/.zshrc"
 alias szrc="source ~/.zshrc"
-alias vimrc="vim ~/.vimrc"
 alias tarc="tar -cvf"
 alias tarx="tar -xvf"
+alias shutowo="shutdown now"
+alias vol='pulsemixer'
+alias dupterm='nohup alacritty --working-directory=$(pwd) &'
+
+# vim
+alias vim="nvim"
+alias vimrc="vim ~/.vimrc"
+
+# emacs
+alias doomsync="~/.emacs.d/bin/doom sync"
+alias em="emacs -nw"
+alias ec='emacsclient --create-frame --alternate-editor=""'
 
 # processes and sytem monitoring
 alias ptree="pstree -p"
@@ -81,12 +116,14 @@ alias pacwhere='pacman -Ql'
 alias pacls='grep -i installed /var/log/pacman.log'
 # cleans up orhpaned packages
 alias paccl='sudo pacman -Rns $(pacman -Qtdq)'
-alias pacrmcache='sudo pacman -Sc'
+alias pacrmcache='sudo pacman -Scc'
+alias pacrmorph='sudo pacman -Rns $(pacman -Qtdq)'
 # does not work for some reason
+alias pacspace="pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}' | sort -hr | less"
 #alias pacspace="pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}' | sort -hr | less"
 
 # youtube-dl quickies
-alias ydlraw='youtube-dl -f bestaudio -i -o "~/music/.raw/%(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PL5H5hNhQuW8FDUVnbFWYfrZQ7cPysP2rp"'
+alias ydlraw='youtube-dl -f bestaudio -i -o "~/music/.raw/%(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PL5H5hNhQuW8HV8gxNxMK1G34kQkqEyyiE"'
 alias ydlv='youtube-dl -f bestaudio -i -o "~/music/v/%(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PL5H5hNhQuW8EIQ3XN8MTg6BLyI_A8TQfy"'
 alias ydlkr='youtube-dl -f bestaudio -i -o "~/music/kr/%(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PL5H5hNhQuW8HuwSgJgfnVGz9ueXPJSLrl"'
 alias ydlnh='youtube-dl -f bestaudio -i -o "~/music/nh/%(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PL5H5hNhQuW8G5uU0Ie0Po0jc0rHvnIEsu"'
@@ -109,6 +146,9 @@ alias faast='xset r rate 250 30'
 # check keybindings in shell
 alias bk='bindkey'
 
+# get the window name, click on a window after running this
+alias winname='xprop | rg "WM_CLASS"'
+
 # simple-mtpfs
 # mounts the first detected mtp device
 alias mountphone='simple-mtpfs --device 1 ~/mnt'
@@ -120,6 +160,12 @@ alias gitls='git ls-tree --name-only -r'
 alias adog='git log --all --decorate --oneline --graph'
 alias gsta='git status'
 alias gadd='git add'
+
+# ssh key gen related
+# add ssh keys to the ssh agent via `ssh-add <private_key_file>`
+alias sshkey='ssh-keygen -t ed25519 -C'
+alias sshstart='eval "$(ssh-agent -s)"'
+alias clip='xclip -selection clipboard <'
 
 # stupid git
 alias got="git"
@@ -140,6 +186,9 @@ alias hlmain="ssh root@192.168.1.222"
 alias hldock="ssh rxpii@192.168.1.3"
 alias hlplex="ssh rxpii@192.168.1.4"
 alias hlseed="ssh rxpii@192.168.1.5"
+
+# ssh
+alias sshagent='eval `ssh-agent -s`'
 
 # makepkg
 alias mkpkg="makepkg -sic"
@@ -163,13 +212,19 @@ alias ieng6='ssh xhcao@ieng6.ucsd.edu'
 # various util
 alias weather='curl wttr.in/'
 alias colortest='msgcat --color=test'
+# list out what processes are using which ports
+alias portlist='sudo lsof -i -P -n'
 
 # map common program names
-alias vim="nvim"
 alias tmux="tmux -f ~/.config/tmux/tmux.conf"
 alias mkdir="mkdir -p"
 alias inf="neofetch"
 alias sbcl="rlwrap sbcl"
+alias clojure="rlwrap clojure"
+alias ocaml="rlwrap ocaml"
+
+# solidity dev
+alias hh='npx hardhat'
 
 # functions
 
@@ -183,3 +238,9 @@ alias 'up'='cd_up'
 
 # broot
 source /home/mogu/.config/broot/launcher/bash/br
+
+# nnn file manager keybindings
+export NNN_PLUG='f:fzcd;o:fzopen;p:mocplay;d:diffs;t:nmount;v:imgview'
+
+# opam configuration
+test -r /home/mogu/.opam/opam-init/init.zsh && . /home/mogu/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

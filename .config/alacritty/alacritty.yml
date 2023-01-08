@@ -13,6 +13,7 @@ env:
   TERM: xterm-256color
 
 window:
+  opacity: 1
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels.
@@ -135,7 +136,7 @@ font:
     style: Bold Italic
 
   # Point size
-  size: 9
+  size: 10
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -163,35 +164,67 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Default colors
     primary:
-        background: '#000002'
-        foreground: '#eeffff'
+        background: '#F5F5F5'
+        foreground: '#333333'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
     cursor:
         text:   '#000000'
-        cursor: '#eeffff'
+        cursor: '#3a8bb0'
 
   # Normal colors
     normal:
-        black:   '#000000'
-        red:     '#ff326c'
-        green:   '#ffb365'
-        yellow:  '#AAAAAA'
-        blue:    '#7898FB'
-        magenta: '#00FECA'
-        cyan:    '#666666'
-        white:   '#AAAAAA'
+        black:   '#4D4D4D'
+        red:     '#5D4037'
+        green:   '#5D4037'
+        yellow:  '#FBC02D'
+        blue:    '#5D4037'
+        magenta: '#5D4037'
+        cyan:    '#5D4037'
+        white:   '#9E9E9E'
 
   # Bright colors
     bright:
-        black:   '#4A4A4A'
-        red:     '#ff326c'
-        green:   '#666666'
-        yellow:  '#666666'
-        blue:    '#B2CCD6'
-        magenta: '#EEFFFF'
-        cyan:    '#ffb365'
+        black:   '#9E9E9E'
+        red:     '#D75F5F'
+        green:   '#D75F5F'
+        yellow:  '#FFF59D'
+        blue:    '#D75F5F'
+        magenta: '#D75F5F'
+        cyan:    '#D75F5F'
         white:   '#FFFFFF'
+
+  # # Default colors
+    # primary:
+        # background: '#000002'
+        # foreground: '#eeffff'
+#
+  # # Colors the cursor will use if `custom_cursor_colors` is true
+    # cursor:
+        # text:   '#000000'
+        # cursor: '#eeffff'
+#
+  # # Normal colors
+    # normal:
+        # black:   '#000000'
+        # red:     '#ff326c'
+        # green:   '#ffb365'
+        # yellow:  '#AAAAAA'
+        # blue:    '#7898FB'
+        # magenta: '#ff326c'
+        # cyan:    '#00FECA'
+        # white:   '#AAAAAA'
+#
+  # # Bright colors
+    # bright:
+        # black:   '#4A4A4A'
+        # red:     '#ff326c'
+        # green:   '#666666'
+        # yellow:  '#666666'
+        # blue:    '#B2CCD6'
+        # magenta: '#EEFFFF'
+        # cyan:    '#ffb365'
+        # white:   '#FFFFFF'
 
 # Visual Bell
 #
@@ -223,7 +256,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.65
+#background_opacity: 0.65
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
