@@ -19,7 +19,7 @@ Plug 'junegunn/fzf.vim'
 "Plug 'mattn/emmet-vim', {'for': ['javascript.jsx', 'html', 'css']}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'wellle/targets.vim'
-"Plug 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'mbbill/undotree'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
@@ -29,21 +29,42 @@ Plug 'ap/vim-css-color'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-fugitive'
 
 " syntax and friends
 Plug 'mxw/vim-jsx', {'for' : 'javascript.jsx'}
 Plug 'pangloss/vim-javascript', {'for' : ['javascript.jsx', 'javascript']}
 Plug 'alvan/vim-closetag'
 " Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'vlime/vlime', {'rtp': 'vim/'}
+Plug 'tomlion/vim-solidity'
+Plug 'jparise/vim-graphql'
+Plug 'leafgarland/typescript-vim'
 
 " colorschemes
 Plug 'nerdypepper/agila.vim'
 Plug 'nerdypepper/chestnut.vim'
 Plug 'nerdypepper/vim-colors-plain', { 'branch': 'duotone' }
 Plug 'kjwon15/vim-transparent'
+
+" lsp modes
+Plug 'prabirshrestha/vim-lsp'
+"Plug 'mattn/vim-lsp-settings'
+
+" echo warning/error under cursor in normal mode
+let g:lsp_diagnostics_echo_cursor = 1
+" prettier gutter signs
+let g:lsp_signs_error = {'text': '✗'}
+let g:lsp_signs_warning = {'text': '‼'}
+" lets you see the hover information by pressing "K".
+au FileType ocaml setlocal keywordprg=:LspHover
+" use tag muscle memory to go to definition, press Ctrl+]
+au FileType ocaml nnoremap <buffer> <C-]> :LspDefinition<CR>
+" ensure whatever you use for completion knows about the LSP information.
+au FileType ocaml setlocal omnifunc=lsp#complete
+
 
 call plug#end()
 
@@ -104,8 +125,8 @@ set hidden
 set wildmenu
 set foldmethod=manual
 set complete=.,w,b,i,u,t,
-set background=dark
-set mouse=a
+set background=light
+"set mouse=a
 set conceallevel=0
 set nocursorline
 set nonumber
@@ -123,15 +144,22 @@ let mapleader= " "
 
 let g:netrw_browsex_viewer= "xdg-open"
 
-colorscheme trans
+"colorscheme trans
+colorscheme coffee
 " get rid of annoying tilde
 highlight EndOfBuffer ctermfg=NONE ctermbg=NONE
-set fcs=eob:\ 
+if has('nvim')
+  set fcs=eob:~
+endif
 
-set tabstop=4 softtabstop=4
+" default indents
+set tabstop=2 softtabstop=2
 set shiftwidth=2
 set expandtab
 set smarttab
+
+" language specific
+autocmd FileType go setlocal noexpandtab
 
 " Functions
 function! GetTabber()  " a lil function that integrates well with Tabular.vim
@@ -237,11 +265,19 @@ let g:livepreview_cursorhold_recompile = 0
 let g:closetag_filetypes = 'html,xhtml,jsx,javascript'
 
 " remaps
+
+" reload vimrc
 nmap <leader>rr :so ~/.vimrc<CR>
+" reload all buffers
+nmap <leader>ee :bufdo! e<CR>
+" indent buffer
 nmap <leader>tt gg=G``zz
 map <C-n> :NERDTreeToggle<CR>
 map <C-h> :UndotreeToggle<CR>
 map <C-b> :noh<CR>
+
+" buffer key maps
+:nnoremap <Leader>b :buffers<CR>:buffer<Space>
 
 " undo history
 set undodir=~/.vim/undodir
@@ -263,3 +299,8 @@ let g:AutoPairs = {'(':')', '[':']', '{':'}'}
 let g:vlime_leader = ","
 let g:vlime_compiler_policy = {"DEBUG": 3}
 "let g:vlime_cl_use_terminal = 1
+
+" leetcode
+let g:leetcode_browser = "chrome"
+
+""" language settings
