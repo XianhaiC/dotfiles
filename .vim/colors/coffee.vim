@@ -31,7 +31,7 @@ let s:light_black     = { "gui": "#424242", "cterm": "8"   }
 let s:lighter_black   = { "gui": "#666666", "cterm": "8" }
 let s:subtle_black    = { "gui": "#444444", "cterm": "11" }
 let s:light_gray      = { "gui": "#999999", "cterm": "12" }
-let s:lighter_gray    = { "gui": "#F8F8F8", "cterm": "7" }
+let s:lighter_gray    = { "gui": "#DDDDDD", "cterm": "7" }
 let s:lightest_gray   = { "gui": "#FAFAFA", "cterm": "13" }
 let s:pink            = { "gui": "#FF2079", "cterm": "5"   }
 let s:dark_red        = { "gui": "#C30771", "cterm": "1"   }
@@ -86,7 +86,7 @@ else
   let s:status_line_nc  = s:light_gray
   let s:constant        = s:orange
   let s:comment         = s:light_gray
-  let s:selection       = s:light_yellow
+  let s:selection       = s:light_blue
   let s:warning         = s:yellow
 endif
 
@@ -160,11 +160,11 @@ call s:h("NonText",       {"fg": s:bg_very_subtle})
 call s:h("EndOfBuffer",   {"fg": s:bg})
 call s:h("Directory",     {"fg": s:dark_yellow})
 call s:h("ErrorMsg",      {"fg": s:pink})
-call s:h("IncSearch",     {"bg": s:selection, "fg": s:dark})
-call s:h("Search",        {"bg": s:selection, "fg": s:dark})
+call s:h("IncSearch",     {"bg": s:selection})
+call s:h("Search",        {"bg": s:selection})
 call s:h("MoreMsg",       {"fg": s:medium_gray, "cterm": "bold", "gui": "bold"})
 hi! link ModeMsg MoreMsg
-call s:h("LineNr",        {"fg": s:medium_gray})
+call s:h("LineNr",        {"fg": s:lighter_gray})
 call s:h("CursorLineNr",  {"fg": s:green, "bg": s:bg_very_subtle})
 call s:h("Question",      {"fg": s:red})
 call s:h("VertSplit",     {"bg": s:bg, "fg": s:bg_very_subtle})

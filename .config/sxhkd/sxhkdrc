@@ -8,14 +8,18 @@ alt + Return
 
 # program launcher
 alt + d
-	dmenu_run -fn 'SF Mono:style=Bold:size=8' \
+	dmenu_run -fn 'Input:style=Bold:size=9' \
 #	-nb '#ff364d' -nf '#e8dfd6' -sf '#ff364d' -sb '#e8dfd6' \
-	-nb '#00FECA' -nf '#000000' -sf '#00FECA' -sb '#000000'
+#	-nb '#00FECA' -nf '#000000' -sf '#00FECA' -sb '#000000'
+#	-nb '#FFB365' -nf '#000000' -sf '#FFB365' -sb '#000000' orange bg black fg
+	-nb '#3a8bb0' -nf '#000000' -sf '#3a8bb0' -sb '#F5F5F5'
 
 alt + p
-	passmenu -fn 'SF Mono:style=Bold:size=8' \
-	-nb '#FF2079' -nf '#000000' -sf '#FF2079' -sb '#000000' \
-        -b
+	passmenu -fn 'Input:style=Bold:size=9' \
+#	-nb '#FF2079' -nf '#000000' -sf '#FF2079' -sb '#000000' \
+#	-nb '#00FECA' -nf '#F5F5F5' -sf '#00FECA' -sb '#000000' \
+	-nb '#3a8bb0' -nf '#000000' -sf '#3a8bb0' -sb '#F5F5F5' \
+  -b
 
 # negative -w arg to account for a border width (default: 100%)
 alt + grave

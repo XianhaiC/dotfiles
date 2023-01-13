@@ -141,7 +141,7 @@ alias gcalw='gcalcli calw'
 alias 32or64='uname -a'
 
 # modify the cursor delay/repetition speed via xset
-alias faast='xset r rate 250 30'
+alias faast='xset r rate 300 30'
 
 # check keybindings in shell
 alias bk='bindkey'
@@ -234,7 +234,7 @@ function cd_up() {
 alias 'up'='cd_up'
 
 # fuzzy search
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.config/fzf/fzf.zsh ] && source ~/.config/fzf/fzf.zsh
 
 # broot
 source /home/mogu/.config/broot/launcher/bash/br
