@@ -272,6 +272,8 @@ nmap <leader>rr :so ~/.vimrc<CR>
 nmap <leader>ee :bufdo! e<CR>
 " indent buffer
 nmap <leader>tt gg=G``zz
+" remove whitespace from whitespace only lines (keeps line itself)
+nmap <leader>dw :%s/^\s*$//<CR>
 map <C-n> :NERDTreeToggle<CR>
 map <C-h> :UndotreeToggle<CR>
 map <C-b> :noh<CR>
