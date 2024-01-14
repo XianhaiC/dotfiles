@@ -1,0 +1,71 @@
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.bright]
+black = "#9E9E9E"
+blue = "#D75F5F"
+cyan = "#D75F5F"
+green = "#D75F5F"
+magenta = "#D75F5F"
+red = "#D75F5F"
+white = "#FFFFFF"
+yellow = "#000000"
+
+[colors.cursor]
+cursor = "#3a8bb0"
+text = "#000000"
+
+[colors.normal]
+black = "#4D4D4D"
+blue = "#5D4037"
+cyan = "#5D4037"
+green = "#5D4037"
+magenta = "#5D4037"
+red = "#5D4037"
+white = "#9E9E9E"
+yellow = "#FBC02D"
+
+[colors.primary]
+background = "#F5F5F5"
+foreground = "#333333"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 8
+
+[font.bold]
+family = "Input"
+style = "Medium"
+
+[font.bold_italic]
+family = "scientifica"
+style = "Bold Italic"
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[font.italic]
+family = "Input"
+style = "Italic"
+
+[font.normal]
+family = "Input"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 0
+
+[window]
+opacity = 1
+
+[window.dimensions]
+columns = 0
+lines = 0
+
+[window.padding]
+x = 48
+y = 18
