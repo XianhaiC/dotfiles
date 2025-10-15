@@ -42,6 +42,13 @@ Plug 'vlime/vlime', {'rtp': 'vim/'}
 Plug 'tomlion/vim-solidity'
 Plug 'jparise/vim-graphql'
 Plug 'leafgarland/typescript-vim'
+Plug 'tikhomirov/vim-glsl'
+
+" claude code
+Plug 'nvim-lua/plenary.nvim'
+Plug 'greggh/claude-code.nvim'
+" After installing, add this to your init.vim:
+" " lua require('claude-code').setup()
 
 " colorschemes
 Plug 'nerdypepper/agila.vim'
@@ -138,7 +145,6 @@ set updatetime=300
 set signcolumn=yes
 set nu
 set rnu
-set pastetoggle=<F3>
 set completeopt-=preview
 let mapleader= " "
 
@@ -248,6 +254,10 @@ inoremap <silent><expr> <Tab>
 hi CocHintSign ctermfg=7
 nmap <leader>rr <Plug>(coc-rename)
 nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " NERD commenter
 let g:NERDSpaceDelims = 1
@@ -272,8 +282,6 @@ nmap <leader>rr :so ~/.vimrc<CR>
 nmap <leader>ee :bufdo! e<CR>
 " indent buffer
 nmap <leader>tt gg=G``zz
-" remove whitespace from whitespace only lines (keeps line itself)
-nmap <leader>dw :%s/^\s*$//<CR>
 map <C-n> :NERDTreeToggle<CR>
 map <C-h> :UndotreeToggle<CR>
 map <C-b> :noh<CR>
@@ -306,3 +314,6 @@ let g:vlime_compiler_policy = {"DEBUG": 3}
 let g:leetcode_browser = "chrome"
 
 """ language settings
+
+" claude code
+nmap <leader>cc :ClaudeCode<CR>
