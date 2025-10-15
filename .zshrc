@@ -13,14 +13,9 @@ bindkey -v '^?' backward-delete-char
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 
-# setup history
-export SAVEHIST=1000
-export HISTSIZE=1000
-export HISTFILE=~/.zsh_history
-
 # This will set the default prompt to the walters theme
 #export PS1='%n %m %c '
-export PROMPT=$'\n''%F{green}%c%f'$'\n''%F{white}λ%f '
+export PROMPT=$'\n''%F{green}%c%f'$'\n''%F{magenta}%n%f '
 
 # colored prompt and folders/files
 alias ls="ls -h --color=always"
@@ -33,14 +28,11 @@ alias ls="ls -h --color=always"
 export MUSIC_PATH='/home/mogu/music'
 
 # init rbenv by default
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+#export PATH="$HOME/.rbenv/bin:$PATH"
+#eval "$(rbenv init -)"
 
-# use an editor with man
-export MANPAGER='/bin/bash -c "nvim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist norelativenumber nonu noma\" -c \"normal L\" -c \"nmap q :qa<CR>\"</dev/tty <(col -b)"'
-
-export EDITOR="vim"
-
+# wine
+export WINEARCH=win32
 
 ## PATH EXPORTS
 
@@ -50,31 +42,35 @@ export PATH=$PATH:$HOME/.scripts
 # pip user modules
 export PATH=$PATH:$HOME/.local/bin
 
-# cargos
-export PATH=$PATH:$HOME/.cargo/bin
-
-# lisp roswell
-export PATH=$PATH:$HOME/.roswell/bin
-
-# go
-export GO111MODULE=auto
-export GOPATH=$HOME/projects/go
-export PATH=$PATH:$GOPATH/bin
-# ensure binaries are installed under go path
-export GOBIN=$HOME/.go/bin
+# user app images
+export PATH=$PATH:$HOME/apps
 
 # npm user global package installations
 PATH="$HOME/.node_modules/bin:$PATH"
 export npm_config_prefix=~/.node_modules
 
+# pnpm
+export PNPM_HOME="/home/maru/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
 # Ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# Go
+export GOPATH="$HOME/.go/bin"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # bspwm config home
 export XDG_CONFIG_HOME="$HOME/.config"
+
+# bspwm config home
+export EDITOR="vim"
 
 ## ALIASES
 
@@ -83,27 +79,18 @@ alias lah="ls -lah"
 alias cl="clear"
 alias vimzrc="vim ~/.zshrc"
 alias szrc="source ~/.zshrc"
+alias vimrc="vim ~/.vimrc"
 alias tarc="tar -cvf"
 alias tarx="tar -xvf"
-alias shutowo="shutdown now"
-alias vol='pulsemixer'
-alias dupterm='nohup alacritty --working-directory=$(pwd) &'
-
-# vim
-alias vim="nvim"
-alias vimrc="vim ~/.vimrc"
-
-# emacs
-alias doomsync="~/.emacs.d/bin/doom sync"
-alias em="emacs -nw"
-alias ec='emacsclient --create-frame --alternate-editor=""'
 
 # processes and sytem monitoring
 alias ptree="pstree -p"
 alias murder="killall -9"
 alias space="df -h"
+alias nspace="ncdu"
 # delete logs older than 3 days
 alias rmlogs="sudo journalctl --vacuum-time=3d"
+alias power="cat /sys/class/power_supply/BAT0/capacity"
 
 # config related
 alias urel="xrdb ~/.Xresources"
@@ -116,10 +103,8 @@ alias pacwhere='pacman -Ql'
 alias pacls='grep -i installed /var/log/pacman.log'
 # cleans up orhpaned packages
 alias paccl='sudo pacman -Rns $(pacman -Qtdq)'
-alias pacrmcache='sudo pacman -Scc'
-alias pacrmorph='sudo pacman -Rns $(pacman -Qtdq)'
+alias pacrmcache='sudo pacman -Sc'
 # does not work for some reason
-alias pacspace="pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}' | sort -hr | less"
 #alias pacspace="pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}' | sort -hr | less"
 
 # youtube-dl quickies
@@ -140,14 +125,22 @@ alias gcalw='gcalcli calw'
 # check if system is 32 or 64 bit
 alias 32or64='uname -a'
 
+# mic test
+alias mictest='arecord -vvv -f dat /dev/null'
+
+# refresh keybindings
+alias kbind='xmodmap ~/.Xmodmap && xset r rate 250 45'
 # modify the cursor delay/repetition speed via xset
-alias faast='xset r rate 300 30'
+alias faast='xset r rate 250 45'
+
+# load xmodmap in cases where you connect keyboard and bindings aren't correct
+alias mod='xmodmap ~/.Xmodmap'
+
+# kill Xserver
+alias killx='killall Xorg'
 
 # check keybindings in shell
 alias bk='bindkey'
-
-# get the window name, click on a window after running this
-alias winname='xprop | rg "WM_CLASS"'
 
 # simple-mtpfs
 # mounts the first detected mtp device
@@ -161,12 +154,6 @@ alias adog='git log --all --decorate --oneline --graph'
 alias gsta='git status'
 alias gadd='git add'
 
-# ssh key gen related
-# add ssh keys to the ssh agent via `ssh-add <private_key_file>`
-alias sshkey='ssh-keygen -t ed25519 -C'
-alias sshstart='eval "$(ssh-agent -s)"'
-alias clip='xclip -selection clipboard <'
-
 # stupid git
 alias got="git"
 alias gut="git"
@@ -178,6 +165,12 @@ alias shipto="git push"
 alias switch="git checkout"
 alias squash="git rebase -i"
 
+# lisp psil
+alias sbcl="rlwrap sbcl"
+
+# doom emacs
+alias doomsync="~/.emacs.d/bin/doom sync"
+
 # rails
 alias krs='kill -9 $(cat ~/projects/rails/whim/tmp/pids/server.pid)'
 
@@ -188,7 +181,7 @@ alias hlplex="ssh rxpii@192.168.1.4"
 alias hlseed="ssh rxpii@192.168.1.5"
 
 # ssh
-alias sshagent='eval `ssh-agent -s`'
+alias sshagent='eval "$(ssh-agent -s)"'
 
 # makepkg
 alias mkpkg="makepkg -sic"
@@ -212,19 +205,12 @@ alias ieng6='ssh xhcao@ieng6.ucsd.edu'
 # various util
 alias weather='curl wttr.in/'
 alias colortest='msgcat --color=test'
-# list out what processes are using which ports
-alias portlist='sudo lsof -i -P -n'
 
-# map common program names
-alias tmux="tmux -f ~/.config/tmux/tmux.conf"
-alias mkdir="mkdir -p"
-alias inf="neofetch"
-alias sbcl="rlwrap sbcl"
-alias clojure="rlwrap clojure"
-alias ocaml="rlwrap ocaml"
+# map vim to nvim
+#alias vim="nvim"
 
-# solidity dev
-alias hh='npx hardhat'
+# give info vi bindings
+alias info='info --vi-keys'
 
 # functions
 
@@ -234,13 +220,21 @@ function cd_up() {
 alias 'up'='cd_up'
 
 # fuzzy search
-[ -f ~/.config/fzf/fzf.zsh ] && source ~/.config/fzf/fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# set default java version
+alias archjava="archlinux-java status"
+alias setjava19="sudo archlinux-java set java-19-openjdk"
+
+# aws connect
+alias awsmint='ssh -i ~/.ssh/mint-bot.pem ec2-user@ec2-18-222-218-179.us-east-2.compute.amazonaws.com'
+alias msserv='ssh -i ~/.ssh/ms-server.pem ec2-user@ec2-3-21-41-174.us-east-2.compute.amazonaws.com'
+
+# solidity dev
+alias hh='npx hardhat'
 
 # broot
-source /home/mogu/.config/broot/launcher/bash/br
+#source /home/mogu/.config/broot/launcher/bash/br
 
-# nnn file manager keybindings
-export NNN_PLUG='f:fzcd;o:fzopen;p:mocplay;d:diffs;t:nmount;v:imgview'
-
-# opam configuration
-test -r /home/mogu/.opam/opam-init/init.zsh && . /home/mogu/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# nvm
+#source /usr/share/nvm/init-nvm.sh
